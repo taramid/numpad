@@ -61,7 +61,7 @@ const
     <Pad :event="Event.Digit" :digit="Arabic.One" v-on:hit="onType"/>
     <Pad :event="Event.Digit" :digit="Arabic.Two" v-on:hit="onType"/>
     <Pad :event="Event.Digit" :digit="Arabic.Three" v-on:hit="onType"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Four"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Four" v-on:hit="onType"/>
     <Pad :event="Event.Digit" :digit="Arabic.Five" v-on:hit="onType"/>
     <Pad :event="Event.Digit" :digit="Arabic.Six" v-on:hit="onType"/>
     <Pad :event="Event.Digit" :digit="Arabic.Seven" v-on:hit="onType"/>
