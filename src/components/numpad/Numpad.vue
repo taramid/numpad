@@ -38,6 +38,12 @@ const typed = ref('')
     <Pad :event="Event.Digit" :digit="Arabic.One" />
     <Pad :event="Event.Digit" :digit="Arabic.Two"/>
     <Pad :event="Event.Digit" :digit="Arabic.Three"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Four" />
+    <Pad :event="Event.Digit" :digit="Arabic.Five"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Six"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Seven" />
+    <Pad :event="Event.Digit" :digit="Arabic.Eight"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Nine"/>
     <Pad :event="Event.Enter" class="col-span-3">enter</Pad>
   </div>
 
