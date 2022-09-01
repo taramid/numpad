@@ -3,24 +3,47 @@
 // order is after:
 // https://github.com/vuejs/pinia/blob/v2/packages/pinia/src/storeToRefs.ts
 
-import {ref} from 'vue'
+import {ref, computed} from 'vue'
 
 import Pad from './Pad.vue'
 
 import {Event, Arabic} from './types'
 
 
-const typed = ref('')
+const props = defineProps<{
+  modelValue: number | null,
+}>()
 
-// defineProps<{
-//   classes?: string
-// }>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: number | null): void
+  (e: 'submit', value: number): void
+}>()
+
+
+const digits = ref<Array<Arabic>>([])
+
+const answer = computed<number | null>(() => parseInt(digits.value.join(''), 10) || null)
+
+const
+
+    onType = (event: Event, digit: Arabic) => {
+      if (Event.Digit === event) {
+        digits.value.push(digit as Arabic)
+        emit('update:modelValue', answer.value)
+      }
+    },
+
+    onBackspace = () => {
+      digits.value.pop()
+      emit('update:modelValue', answer.value)
+    },
+
+    onSubmit = () => answer && emit('submit', answer.value as number) // todo reset
+;
 
 </script>
 
 <template>
-
-  <h2>{{ typed }}</h2>
 
   <div
       class="
@@ -33,18 +56,18 @@ const typed = ref('')
         h-80
       "
   >
-    <Pad :event="Event.Digit" :digit="Arabic.Zero"/>
-    <Pad :event="Event.Backspace" class="col-span-2 text-red-500">&#9003;</Pad>
-    <Pad :event="Event.Digit" :digit="Arabic.One" />
-    <Pad :event="Event.Digit" :digit="Arabic.Two"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Three"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Four" />
-    <Pad :event="Event.Digit" :digit="Arabic.Five"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Six"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Seven" />
-    <Pad :event="Event.Digit" :digit="Arabic.Eight"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Nine"/>
-    <Pad :event="Event.Enter" class="col-span-3">enter</Pad>
+    <Pad :event="Event.Digit" :digit="Arabic.Zero" v-on:hit="onType"/>
+    <Pad :event="Event.Backspace" v-on:hit="onBackspace" class="col-span-2 text-red-500">&#9003;</Pad>
+    <Pad :event="Event.Digit" :digit="Arabic.One" v-on:hit="onType"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Two" v-on:hit="onType"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Three" v-on:hit="onType"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Four"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Five" v-on:hit="onType"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Six" v-on:hit="onType"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Seven" v-on:hit="onType"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Eight" v-on:hit="onType"/>
+    <Pad :event="Event.Digit" :digit="Arabic.Nine" v-on:hit="onType"/>
+    <Pad :event="Event.Enter" v-on:hit="onSubmit" class="col-span-3">enter</Pad>
   </div>
 
 </template>

@@ -1,20 +1,22 @@
 <script setup lang="ts">
 
-import {Event} from './types'
+import {Event, Arabic} from './types'
 
 const props = defineProps<{
   event: Event,
   digit?: number,
 }>()
 
-const onHit = () => console.log(props.event, props.digit);
+const emit = defineEmits<{
+  (e: 'hit', ev: Event, digit?: Arabic): void
+}>()
 
 </script>
 
 <template>
   <div
       class="grid justify-center content-center"
-      @click="onHit"
+      @click="emit('hit', props.event, props.digit)"
   >
     <slot>{{ props.digit ?? '_' }}</slot>
   </div>
