@@ -39,7 +39,7 @@ const
     },
 
     onSubmit = () => {
-      if (answer) {
+      if (answer.value) {
         emit('submit', answer.value as number)
         digits.value = []
       }
