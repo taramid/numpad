@@ -38,7 +38,12 @@ const
       emit('update:modelValue', answer.value)
     },
 
-    onSubmit = () => answer && emit('submit', answer.value as number) // todo reset
+    onSubmit = () => {
+      if (answer) {
+        emit('submit', answer.value as number)
+        digits.value = []
+      }
+    }
 ;
 
 </script>
