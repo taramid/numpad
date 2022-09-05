@@ -26,11 +26,9 @@ const answer = computed<number | null>(() => parseInt(digits.value.join(''), 10)
 
 const
 
-    onType = (event: Event, digit: Arabic) => {
-      if (Event.Digit === event) {
-        digits.value.push(digit as Arabic)
-        emit('update:modelValue', answer.value)
-      }
+    onDigit = (digit: Arabic) => {
+      digits.value.push(digit)
+      emit('update:modelValue', answer.value)
     },
 
     onBackspace = () => {
@@ -42,6 +40,16 @@ const
       if (answer.value) {
         emit('submit', answer.value as number)
         digits.value = []
+      }
+    },
+
+    onHit = (event: Event, digit?: Arabic) => {
+      if (Event.Digit === event) {
+        onDigit(digit as Arabic)
+      } else if (Event.Backspace === event) {
+        onBackspace()
+      } else if (Event.Enter === event) {
+        onSubmit()
       }
     }
 ;
@@ -61,18 +69,18 @@ const
         h-80
       "
   >
-    <Pad :event="Event.Digit" :digit="Arabic.Zero" v-on:hit="onType"/>
-    <Pad :event="Event.Backspace" v-on:hit="onBackspace" class="col-span-2 text-red-500">&#9003;</Pad>
-    <Pad :event="Event.Digit" :digit="Arabic.One" v-on:hit="onType"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Two" v-on:hit="onType"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Three" v-on:hit="onType"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Four" v-on:hit="onType"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Five" v-on:hit="onType"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Six" v-on:hit="onType"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Seven" v-on:hit="onType"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Eight" v-on:hit="onType"/>
-    <Pad :event="Event.Digit" :digit="Arabic.Nine" v-on:hit="onType"/>
-    <Pad :event="Event.Enter" v-on:hit="onSubmit" class="col-span-3">enter</Pad>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Zero"/>
+    <Pad @hit="onHit" :event="Event.Backspace" class="col-span-2 text-red-500">&#9003;</Pad>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.One"/>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Two"/>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Three"/>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Four"/>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Five"/>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Six"/>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Seven"/>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Eight"/>
+    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Nine"/>
+    <Pad @hit="onHit" :event="Event.Enter" class="col-span-3">enter</Pad>
   </div>
 
 </template>
