@@ -83,4 +83,8 @@ const
     <Pad @hit="onHit" :event="Event.Enter" class="col-span-3">enter</Pad>
   </div>
 
+<!--  https://vuejs.org/guide/typescript/composition-api.html#typing-component-props-->
+<!--  https://vuejs.org/guide/extras/reactivity-transform.html#reactive-props-destructure-->
+<!--  https://vuejs.org/api/sfc-script-setup.html#typescript-only-features-->
+
 </template>
