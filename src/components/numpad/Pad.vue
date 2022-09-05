@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+import {ref} from 'vue'
+
 import {Event, Arabic} from './types'
 
 const props = defineProps<{
@@ -11,13 +13,48 @@ const emit = defineEmits<{
   (e: 'hit', ev: Event, digit?: Arabic): void
 }>()
 
+const bPlayHitAnimation = ref(false)
+
+const startHitAnimation = () => {
+  bPlayHitAnimation.value = false
+  setTimeout(
+      () => bPlayHitAnimation.value = true,
+      0
+  )
+}
+
+const onHit = () => {
+  startHitAnimation()
+  emit('hit', props.event, props.digit)
+}
+
 </script>
 
 <template>
   <div
-      class="grid justify-center content-center"
-      @click="emit('hit', props.event, props.digit)"
+      :class="{
+        'grid justify-center content-center' : true,
+        'tap': bPlayHitAnimation
+      }"
+      @click="onHit"
   >
     <slot>{{ props.digit ?? '_' }}</slot>
   </div>
 </template>
+
+<style scoped>
+
+.tap {
+  animation: tap-frames 1200ms;
+}
+
+@keyframes tap-frames {
+  0% {
+    background-color: #ff8;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+</style>
