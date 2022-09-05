@@ -50,7 +50,8 @@ const onHit = () => {
 
 @keyframes tap-frames {
   0% {
-    background-image: radial-gradient(#ffa, #ff8);
+    /* background-image: radial-gradient(#ffa, #ff8); gradient is not animatable */
+    background-color: #ff8;
   }
   100% {
     background-color: white;
