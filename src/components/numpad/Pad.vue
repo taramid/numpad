@@ -2,7 +2,7 @@
 
 import {ref} from 'vue'
 
-import {Event, Arabic} from './types'
+import type {Event, Arabic} from './types'
 
 const props = defineProps<{
   event: Event,
