@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {ref, computed} from 'vue'
+import {reactive, computed} from 'vue'
 
 import type {Event, Arabic} from './types'
 
@@ -13,26 +13,26 @@ const emit = defineEmits<{
   (e: 'hit', ev: Event, digit?: Arabic): void
 }>()
 
-const
-    bPlayHitAnimation = ref(false),
-    bAnotherOne = ref(false);
-
-const startHitAnimation = () => {
-  bAnotherOne.value = !bAnotherOne.value
-  bPlayHitAnimation.value = true
-}
+const animation = reactive({
+  bPlay: false,
+  n: 0,
+  swap() {
+    this.n = 1 - this.n
+    this.bPlay = true
+  },
+  name() {
+    if (this.bPlay) {
+      return 'tap-' + this.n
+    }
+  }
+})
 
 const onHit = () => {
-  startHitAnimation()
+  animation.swap();
   emit('hit', props.event, props.digit)
 }
 
-const hitAnimation = computed(() => {
-  if (bPlayHitAnimation.value) {
-    return !bAnotherOne.value ? 'tap-0' : 'tap-1'
-  }
-  return ''
-})
+const hitAnimation = computed(() => animation.name())
 
 </script>
 
