@@ -65,7 +65,7 @@ const
         text-5xl text-slate-600
         bg-gray-300
         [&>*]:bg-white
-        xs:w-full sm:w-3/4
+        w-full sm:w-3/4 md:w-3/5 lg:w-1/2 xl:w-2/5
         h-80
       "
   >
