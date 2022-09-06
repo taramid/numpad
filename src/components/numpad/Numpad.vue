@@ -43,7 +43,7 @@ const
       }
     },
 
-    onHit = (event: Event, digit?: Arabic) => {
+    onTap = (event: Event, digit?: Arabic) => {
       if (Event.Digit === event) {
         onDigit(digit as Arabic)
       } else if (Event.Backspace === event) {
@@ -69,18 +69,18 @@ const
         h-80
       "
   >
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Zero"/>
-    <Pad @hit="onHit" :event="Event.Backspace" class="col-span-2 text-red-500">&#9003;</Pad>
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.One"/>
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Two"/>
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Three"/>
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Four"/>
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Five"/>
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Six"/>
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Seven"/>
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Eight"/>
-    <Pad @hit="onHit" :event="Event.Digit" :digit="Arabic.Nine"/>
-    <Pad @hit="onHit" :event="Event.Enter" class="col-span-3">enter</Pad>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.Zero"/>
+    <Pad @tap="onTap" :event="Event.Backspace" class="col-span-2 text-red-500">&#9003;</Pad>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.One"/>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.Two"/>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.Three"/>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.Four"/>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.Five"/>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.Six"/>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.Seven"/>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.Eight"/>
+    <Pad @tap="onTap" :event="Event.Digit" :digit="Arabic.Nine"/>
+    <Pad @tap="onTap" :event="Event.Enter" class="col-span-3">enter</Pad>
   </div>
 
 <!--  https://vuejs.org/guide/typescript/composition-api.html#typing-component-props-->

@@ -10,7 +10,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'hit', ev: Event, digit?: Arabic): void
+  (e: 'tap', ev: Event, digit?: Arabic): void
 }>()
 
 const animation = reactive({
@@ -22,17 +22,17 @@ const animation = reactive({
   },
   name() {
     if (this.bPlay) {
-      return 'tap-' + this.n
+      return 'tap-animation-' + this.n
     }
   }
 })
 
-const onHit = () => {
+const onTap = () => {
   animation.swap();
-  emit('hit', props.event, props.digit)
+  emit('tap', props.event, props.digit)
 }
 
-const hitAnimation = computed(() => animation.name())
+const tapAnimation = computed(() => animation.name())
 
 </script>
 
@@ -40,9 +40,9 @@ const hitAnimation = computed(() => animation.name())
   <div
       :class="[
         'grid justify-center content-center',
-        hitAnimation,
+        tapAnimation,
       ]"
-      @click="onHit"
+      @click="onTap"
   >
     <slot>{{ props.digit ?? '_' }}</slot>
   </div>
@@ -50,7 +50,7 @@ const hitAnimation = computed(() => animation.name())
 
 <style scoped>
 
-.tap-0 {
+.tap-animation-0 {
   animation: tap-frames-0 600ms;
 }
 
@@ -63,7 +63,7 @@ const hitAnimation = computed(() => animation.name())
   }
 }
 
-.tap-1 {
+.tap-animation-1 {
   animation: tap-frames-1 600ms;
 }
 
