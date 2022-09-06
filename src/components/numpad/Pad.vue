@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-import {ref} from 'vue'
+import {ref, computed} from 'vue'
 
 import type {Event, Arabic} from './types'
 
@@ -13,14 +13,13 @@ const emit = defineEmits<{
   (e: 'hit', ev: Event, digit?: Arabic): void
 }>()
 
-const bPlayHitAnimation = ref(false)
+const
+    bPlayHitAnimation = ref(false),
+    bAnotherOne = ref(false);
 
 const startHitAnimation = () => {
-  bPlayHitAnimation.value = false
-  setTimeout(
-      () => bPlayHitAnimation.value = true,
-      0
-  )
+  bAnotherOne.value = !bAnotherOne.value
+  bPlayHitAnimation.value = true
 }
 
 const onHit = () => {
@@ -28,14 +27,21 @@ const onHit = () => {
   emit('hit', props.event, props.digit)
 }
 
+const hitAnimation = computed(() => {
+  if (bPlayHitAnimation.value) {
+    return !bAnotherOne.value ? 'tap-0' : 'tap-1'
+  }
+  return ''
+})
+
 </script>
 
 <template>
   <div
-      :class="{
-        'grid justify-center content-center' : true,
-        'tap': bPlayHitAnimation
-      }"
+      :class="[
+        'grid justify-center content-center',
+        hitAnimation,
+      ]"
       @click="onHit"
   >
     <slot>{{ props.digit ?? '_' }}</slot>
@@ -44,18 +50,32 @@ const onHit = () => {
 
 <style scoped>
 
-.tap {
-  animation: tap-frames 1200ms;
+.tap-0 {
+  animation: tap-frames-0 600ms;
 }
 
-@keyframes tap-frames {
+@keyframes tap-frames-0 {
   0% {
-    /* background-image: radial-gradient(#ffa, #ff8); gradient is not animatable */
     background-color: #ff8;
   }
   100% {
     background-color: white;
   }
 }
+
+.tap-1 {
+  animation: tap-frames-1 600ms;
+}
+
+@keyframes tap-frames-1 {
+  0% {
+    background-color: #ff8;
+  }
+  100% {
+    background-color: white;
+  }
+}
+
+/* https://css-tricks.com/restart-css-animation/ */
 
 </style>
